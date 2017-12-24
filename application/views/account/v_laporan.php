@@ -132,8 +132,12 @@
      <td> <?php echo form_error('Tanggal'); ?> </td></tr>
 
      <tr><td>Jenis Laporan</td><td>:</td>
-     <td><input type="text" name="Judul" value="<?php echo set_value('Judul'); ?>"/></td>
-     <td> <?php echo form_error('Judul'); ?> </td></tr>
+     <td><select name="Judul" id="Judul">
+    <option value="">Select</option>
+    <option value="Pembegalan">Tindak Kriminal</option>
+    <option value="Perampokan">Surat Keterangan Kehilangan</option>
+    </select> <font color="#FF0000"><?php echo form_error('Judul');?></font></td>
+   </tr>
 
        <tr><td>Kategori</td><td>:</td>
        <td><select name="Kategori" id="Kategori">
@@ -144,6 +148,7 @@
     <option value="Penipuan">Penipuan</option>
     <option value="Pemerkosaan">Pemerkosaan</option>
     <option value="Pembunuhan">Pembunuhan</option>
+    <option value="Pembunuhan">Keterangan Kehilangan</option>
     </select> <font color="#FF0000"><?php echo form_error('Kategori');?></font></td>
    </tr>
 
