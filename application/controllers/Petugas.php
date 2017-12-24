@@ -1,0 +1,158 @@
+<?php
+
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
+
+class Petugas extends CI_Controller
+{
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Petugas_model');
+        $this->load->library('form_validation');
+    }
+
+    public function index()
+    {
+        $q = urldecode($this->input->get('q', TRUE));
+        $start = intval($this->input->get('start'));
+        
+        if ($q <> '') {
+            $config['base_url'] = base_url() . 'petugas/index.html?q=' . urlencode($q);
+            $config['first_url'] = base_url() . 'petugas/index.html?q=' . urlencode($q);
+        } else {
+            $config['base_url'] = base_url() . 'petugas/index.html';
+            $config['first_url'] = base_url() . 'petugas/index.html';
+        }
+
+        $config['per_page'] = 10;
+        $config['page_query_string'] = TRUE;
+        $config['total_rows'] = $this->Petugas_model->total_rows($q);
+        $petugas = $this->Petugas_model->get_limit_data($config['per_page'], $start, $q);
+
+        $this->load->library('pagination');
+        $this->pagination->initialize($config);
+
+        $data = array(
+            'petugas_data' => $petugas,
+            'q' => $q,
+            'pagination' => $this->pagination->create_links(),
+            'total_rows' => $config['total_rows'],
+            'start' => $start,
+        );
+        $this->load->view('petugas/petugas_list', $data);
+    }
+
+    public function read($id) 
+    {
+        $row = $this->Petugas_model->get_by_id($id);
+        if ($row) {
+            $data = array(
+		'id_Petugas' => $row->id_Petugas,
+		'Nama' => $row->Nama,
+		'Jabatan' => $row->Jabatan,
+	    );
+            $this->load->view('petugas/petugas_read', $data);
+        } else {
+            $this->session->set_flashdata('message', 'Record Not Found');
+            redirect(site_url('petugas'));
+        }
+    }
+
+    public function create() 
+    {
+        $data = array(
+            'button' => 'Create',
+            'action' => site_url('petugas/create_action'),
+	    'id_Petugas' => set_value('id_Petugas'),
+	    'Nama' => set_value('Nama'),
+	    'Jabatan' => set_value('Jabatan'),
+	);
+        $this->load->view('petugas/petugas_form', $data);
+    }
+    
+    public function create_action() 
+    {
+        $this->_rules();
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->create();
+        } else {
+            $data = array(
+		'Nama' => $this->input->post('Nama',TRUE),
+		'Jabatan' => $this->input->post('Jabatan',TRUE),
+	    );
+
+            $this->Petugas_model->insert($data);
+            $this->session->set_flashdata('message', 'Create Record Success');
+            redirect(site_url('petugas'));
+        }
+    }
+    
+    public function update($id) 
+    {
+        $row = $this->Petugas_model->get_by_id($id);
+
+        if ($row) {
+            $data = array(
+                'button' => 'Update',
+                'action' => site_url('petugas/update_action'),
+		'id_Petugas' => set_value('id_Petugas', $row->id_Petugas),
+		'Nama' => set_value('Nama', $row->Nama),
+		'Jabatan' => set_value('Jabatan', $row->Jabatan),
+	    );
+            $this->load->view('petugas/petugas_form', $data);
+        } else {
+            $this->session->set_flashdata('message', 'Record Not Found');
+            redirect(site_url('petugas'));
+        }
+    }
+    
+    public function update_action() 
+    {
+        $this->_rules();
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->update($this->input->post('id_Petugas', TRUE));
+        } else {
+            $data = array(
+		'Nama' => $this->input->post('Nama',TRUE),
+		'Jabatan' => $this->input->post('Jabatan',TRUE),
+	    );
+
+            $this->Petugas_model->update($this->input->post('id_Petugas', TRUE), $data);
+            $this->session->set_flashdata('message', 'Update Record Success');
+            redirect(site_url('petugas'));
+        }
+    }
+    
+    public function delete($id) 
+    {
+        $row = $this->Petugas_model->get_by_id($id);
+
+        if ($row) {
+            $this->Petugas_model->delete($id);
+            $this->session->set_flashdata('message', 'Delete Record Success');
+            redirect(site_url('petugas'));
+        } else {
+            $this->session->set_flashdata('message', 'Record Not Found');
+            redirect(site_url('petugas'));
+        }
+    }
+
+    public function _rules() 
+    {
+	$this->form_validation->set_rules('Nama', 'nama', 'trim|required');
+	$this->form_validation->set_rules('Jabatan', 'jabatan', 'trim|required');
+
+	$this->form_validation->set_rules('id_Petugas', 'id_Petugas', 'trim');
+	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+    }
+
+}
+
+/* End of file Petugas.php */
+/* Location: ./application/controllers/Petugas.php */
+/* Please DO NOT modify this information : */
+/* Generated by Harviacode Codeigniter CRUD Generator 2017-01-08 09:24:25 */
+/* http://harviacode.com */
