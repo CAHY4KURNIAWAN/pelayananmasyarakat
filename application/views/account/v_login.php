@@ -93,8 +93,7 @@ form {
 
      <p>
        <div class="container" style="background-color:#f1f1f1">
- <button type="button" class="cancelbtn">Cancel</button>
- <?php echo anchor(site_url().'beranda','di sini..'); ?>
+ <a href="<?php echo base_url(); ?>"><span class="tambah">    Back to home</a>
  <span class="psw">Forgot <a href="#">password?</a></span>
 </div>
-    <?php echo anchor('admin/login','admin!'); ?>
+    <?php echo anchor('admin/login','Admin?'); ?>

@@ -14,24 +14,20 @@
       margin-bottom: 0;
       border-radius: 0;
     }
-
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-    .row.content {height: 450px}
-
+    .row.content {height: 900px}
     /* Set gray background color and 100% height */
     .sidenav {
       padding-top: 20px;
       background-color: #f1f1f1;
       height: 100%;
     }
-
     /* Set black background color, white text and some padding */
     footer {
       background-color: #555;
       color: white;
       padding: 15px;
     }
-
     /* On small screens, set height to 'auto' for sidenav and grid */
     @media screen and (max-width: 767px) {
       .sidenav {
@@ -86,8 +82,9 @@
      <?php echo anchor(site_url().'ulaporan','Buat Laporan'); ?>
      untuk membuat laporan pengaduan anda.
      </p>
-
-
+     <center>
+     <img src="LOGO POLRI.jpg" height="600px" width="100%";>
+     <center>
     </div>
     <div class="col-sm-2 sidenav">
       <img src="polisi.jpg">
