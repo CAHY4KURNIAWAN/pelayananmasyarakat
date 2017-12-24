@@ -134,8 +134,8 @@
      <tr><td>Jenis Laporan</td><td>:</td>
      <td><select name="Judul" id="Judul">
     <option value="">Select</option>
-    <option value="Pembegalan">Tindak Kriminal</option>
-    <option value="Perampokan">Surat Keterangan Kehilangan</option>
+    <option value="Tindak Kriminal">Tindak Kriminal</option>
+    <option value="Surat Keterangan Kehilangan">Surat Keterangan Kehilangan</option>
     </select> <font color="#FF0000"><?php echo form_error('Judul');?></font></td>
    </tr>
 
@@ -148,7 +148,7 @@
     <option value="Penipuan">Penipuan</option>
     <option value="Pemerkosaan">Pemerkosaan</option>
     <option value="Pembunuhan">Pembunuhan</option>
-    <option value="Pembunuhan">Keterangan Kehilangan</option>
+    <option value="Keterangan Kehilangan">Keterangan Kehilangan</option>
     </select> <font color="#FF0000"><?php echo form_error('Kategori');?></font></td>
    </tr>
 
